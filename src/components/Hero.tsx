@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, MessageCircle } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function Hero() {
   const [formData, setFormData] = useState({
@@ -16,18 +16,12 @@ export default function Hero() {
     });
   };
 
-  const handleChatWithExpert = () => {
-    // Trigger chat assistant
-    window.dispatchEvent(new CustomEvent('openChat'));
-  };
-
   const handleSearch = () => {
     if (!formData.treatment || !formData.phoneNumber) {
       alert('Please fill in all required fields');
       return;
     }
-    
-    // In a real implementation, this would process the search
+
     console.log('Search submitted:', formData);
     alert('Thank you! Our medical experts will contact you shortly.');
   };
@@ -46,9 +40,7 @@ export default function Hero() {
         >
           <source src="https://videos.pexels.com/video-files/6205509/6205509-uhd_2560_1440_25fps.mp4" type="video/mp4" />
           <source src="https://videos.pexels.com/video-files/4099355/4099355-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-          {/* Fallback for browsers that don't support video */}
         </video>
-        {/* Dark overlay for better text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
 
@@ -60,31 +52,38 @@ export default function Hero() {
             <br className="hidden sm:block" />
             <span className="block sm:inline"> and Wellness Travel</span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-12 text-gray-200 max-w-4xl mx-auto px-4">
             Healthtrip streamlines your medical travel experience by offering
             <br className="hidden md:block" />
             <span className="block md:inline"> personalized assistance from start to finish.</span>
           </p>
 
-          {/* Search Bar */}
+          {/* Search Bar with Search button */}
           <div className="mb-8 sm:mb-12 px-4">
-            <div className="bg-white rounded-full p-2 max-w-2xl mx-auto shadow-2xl">
-              <div className="flex items-center">
-                <Search className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400 ml-3 sm:ml-4 mr-2 sm:mr-3 flex-shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Search Doctors, Treatments, Hospitals"
-                  className="flex-1 py-2 sm:py-3 px-2 text-gray-700 bg-transparent border-none outline-none text-sm sm:text-lg"
-                />
-              </div>
+            <div className="bg-white rounded-full p-2 max-w-2xl mx-auto shadow-2xl flex items-center gap-2">
+              <Search className="h-5 w-5 sm:h-6 sm:w-6 text-gray-400 ml-3 sm:ml-4 flex-shrink-0" />
+              <input
+                type="text"
+                name="treatment"
+                value={formData.treatment}
+                onChange={handleInputChange}
+                placeholder="Search Doctors, Treatments, Hospitals"
+                className="flex-1 py-2 sm:py-3 px-2 text-gray-700 bg-transparent border-none outline-none text-sm sm:text-lg"
+              />
+              <button
+                onClick={handleSearch}
+                className="bg-teal-500 hover:bg-teal-600 text-white text-sm sm:text-base px-4 py-2 rounded-full font-medium"
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>
 
         {/* Contact Form */}
         <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto shadow-2xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 items-end">
             {/* Resident of */}
             <div className="text-left">
               <label className="flex items-center text-gray-600 mb-2 sm:mb-3 text-xs sm:text-sm font-medium">
@@ -172,18 +171,6 @@ export default function Hero() {
                   required
                 />
               </div>
-            </div>
-
-            {/* Chat Button */}
-            <div className="sm:col-span-2 lg:col-span-1">
-              <button
-                onClick={handleChatWithExpert}
-                className="w-full bg-orange-500 text-white p-3 sm:p-4 rounded-lg font-semibold hover:bg-orange-600 transition-colors flex items-center justify-center text-sm sm:text-base"
-              >
-                <MessageCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                <span className="hidden sm:inline">Chat with a health expert now</span>
-                <span className="sm:hidden">Chat with expert</span>
-              </button>
             </div>
           </div>
         </div>
